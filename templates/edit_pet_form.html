@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Adoption Agency{% endblock %}}
+{% block content %}
+<h1>Edit Pets</h1>
+<div style="display:flex; flex-direction:column; justify-content:space-around"  >
+
+  {% if pet.photo_url %}
+  <img style="height: 300px; width: 300px;" src="{{pet.photo_url}}">
+     <p style="color:lightgreen ;">{{pet.name}} {{pet.notes}} is 
+         {% if pet.available %}
+             available!
+         {% else %}
+             not available!
+         {% endif %}
+     </p>
+  {% else %}
+     <p>{{pet.name}} {{pet.notes}} is 
+         {% if pet.available %}
+             available!
+         {% else %}
+          not available!
+         {% endif %}
+     </p>
+  {% endif %}
+
+</div>
+
+<form  method="POST">
+  {{ form.hidden_tag() }}
+  {% for field in form 
+    if field.widget.input_type != 'hidden' %}
+    <p>
+      {{field.label}}
+      {{field}}
+  
+      {% for err in field.errors %}
+      {{err}}
+      {% endfor %}
+    </p>
+  
+  {% endfor %}
+  <button type="submit">Save</button>
+</div>
+
+</form>
+{% endblock %}
+
